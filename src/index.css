@@ -4,15 +4,21 @@
     padding: 0;
     box-sizing: border-box;
 }
+
 body {
     margin: 0;
     font-family: 'Vazirmatn', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     background-color: #0b2434;
-    padding: 20px;
     width: 100%;
     height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#root {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -26,8 +32,8 @@ code {
 main {
     background-color: #e5e5e5;
     border-radius: 5px;
-    width: calc(100vw - 40px);
-    height: calc(100vh - 40px);
+    width: 90%;
+    height: 90vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -43,6 +49,7 @@ main {
     margin-bottom: 2em;
     text-align: center;
     padding: 0 5px;
+    letter-spacing: 3px;
 }
 
 .die {
@@ -56,7 +63,56 @@ main {
     margin: 1em;
     cursor: pointer;
     background-color: white;
+    position: relative;
 }
+
+/* making dot */
+.dot {
+    width: 10px;
+    height: 10px;
+    background-color: black;
+    border-radius: 50%;
+    position: absolute;
+}
+.center-dot {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.centerLeft-dot {
+    top: 50%;
+    left: 15px;
+    transform: translate(-50%, -50%);
+}
+
+.centerRight-dot {
+    top: 50%;
+    right: 5px;
+    transform: translate(-50%, -50%);
+}
+
+.topRight-dot {
+    top: 10px;
+    right: 10px;
+}
+
+.topLeft-dot {
+    top: 10px;
+    left: 10px;
+}
+
+.bottomRight-dot {
+    bottom: 10px;
+    right: 10px;
+}
+
+.bottomLeft-dot {
+    bottom: 10px;
+    left: 10px;
+}
+/* making dot */
+
 .die.held {
     background-color: #59e391;
 }
@@ -69,9 +125,9 @@ main {
     justify-content: center;
 }
 
-.num {
+/* .num {
     font-size: 2em;
-}
+} */
 
 .roll {
     background-color: #5035ff;
@@ -90,11 +146,9 @@ main {
 }
 
 @media screen and (max-width: 480px) {
-    body {
-        padding: 20px 10px;
-    }
     main {
-        width: calc(100vw - 20px);
+        width: 100%;
+        height: 100vh;
     }
     .container {
         width: 100%;
@@ -102,6 +156,43 @@ main {
     .die {
         width: 50px;
         height: 50px;
-        margin: 0.5em;
+    }
+
+    .instructions {
+        letter-spacing: 2px;
+    }
+
+    /* fixed dot */
+    .topRight-dot {
+        top: 7px;
+        right: 7px;
+    }
+
+    .topLeft-dot {
+        top: 7px;
+        left: 7px;
+    }
+
+    .bottomRight-dot {
+        bottom: 7px;
+        right: 7px;
+    }
+
+    .bottomLeft-dot {
+        bottom: 7px;
+        left: 7px;
+    }
+    .centerLeft-dot {
+        left: 12px;
+    }
+    .centerRight-dot {
+        right: 2px;
+    }
+    /* fixed dot */
+}
+
+@media screen and (max-width: 412px) {
+    .die {
+        margin: 0.6em;
     }
 }
