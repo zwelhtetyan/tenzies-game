@@ -1,6 +1,7 @@
 import React from 'react';
 import Die from './Die';
 import { nanoid } from 'nanoid';
+import Confetti from 'react-confetti';
 
 const App = () => {
     // generate random number between 1-6
@@ -21,15 +22,30 @@ const App = () => {
     // dice state
     const [dice, setDice] = React.useState(allNewDice());
 
+    //tenzies state
+    const [tenzies, setTenzies] = React.useState(false);
+
+    //update tenzies
+    React.useEffect(() => {
+        setTenzies(
+            dice.every((die) => die.isHeld && dice[0].value === die.value)
+        );
+    }, [dice]);
+
     // rollDice when click roll button
     const rollDice = () => {
         setDice((prevDice) => {
-            return allNewDice().map((dice, index) => {
-                return prevDice[index].isHeld ? prevDice[index] : dice;
+            return allNewDice().map((die, index) => {
+                return tenzies
+                    ? die
+                    : prevDice[index].isHeld
+                    ? prevDice[index]
+                    : die;
             });
         });
     };
 
+    // handleHeld to each dice when click
     const handleHeld = (currentHeldID) => {
         setDice((prevDice) => {
             return prevDice.map((dice) =>
@@ -53,14 +69,15 @@ const App = () => {
     return (
         <div>
             <main>
+                {tenzies && <Confetti />}
                 <h1 className='title'>Tenzies</h1>
                 <p className='instructions'>
-                    Roll until all dice are the same. Click each die to freeze
-                    it at its current value between rolls.
+                    {tenzies ? 'You Won 🎉!' : `Roll until all dice are the same. Click each die to freeze
+                    it at its current value between rolls.`}
                 </p>
                 <div className='container'>{diceElements}</div>
                 <button className='roll' onClick={rollDice}>
-                    Roll
+                    {tenzies ? 'New Game' : 'Roll'}
                 </button>
             </main>
         </div>
