@@ -20,7 +20,7 @@ const App = () => {
     };
 
     const [bestTime, setBestTime] = useState(
-        JSON.parse(localStorage.getItem('bestTimeArr')) || []
+        () => JSON.parse(localStorage.getItem('bestTimeArr')) || []
     );
 
     const [time, setTime] = useState(0);
@@ -41,18 +41,18 @@ const App = () => {
         if (tenzies) {
             clearInterval(intervalID);
             setIntervalID(0);
-            if (time < 25) {
-                setBestTime((bestTime) => [...bestTime, time]);
-                localStorage.setItem(
-                    'bestTimeArr',
-                    JSON.stringify([...bestTime, time])
-                );
-            }
         }
-    }, [tenzies]);
+    }, [tenzies, intervalID]);
 
-    console.log(bestTime);
-    console.log(JSON.parse(localStorage.getItem('bestTimeArr')));
+    useEffect(() => {
+        if (tenzies && time !== 0 && time < 20) {
+            setBestTime((prevTime) => [...prevTime, time]);
+        }
+    }, [tenzies, time]); // (!==0 ) means when reset time state and rerender this useEffect and best time always get 0()
+
+    useEffect(() => {
+        localStorage.setItem('bestTimeArr', JSON.stringify(bestTime));
+    }, [bestTime]);
 
     // start counting timer when call this function
     const timer = () => {
@@ -76,9 +76,12 @@ const App = () => {
         });
 
         //counting timer
-        if (intervalID) return;
-        else setTime(0);
-        timer();
+        if (intervalID) {
+            return;
+        } else {
+            setTime(0);
+            timer();
+        }
     };
 
     // handleHeld to each dice when click
@@ -166,7 +169,7 @@ const App = () => {
                 ) : (
                     <p>
                         highest score start from{' '}
-                        <span className='limit-time'>30s</span>
+                        <span className='limit-time'>20s</span>
                     </p>
                 )}
             </div>
