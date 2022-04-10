@@ -22,6 +22,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 100%;
+    height: 100vh;
 }
 
 code {
@@ -38,18 +40,21 @@ main {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    position: relative;
 }
 .title {
-    font-size: 40px;
+    font-size: 3em;
     text-align: center;
+    letter-spacing: 6px;
+    text-transform: uppercase;
 }
 .instructions {
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 500;
     margin-bottom: 2em;
     text-align: center;
     padding: 0 5px;
-    letter-spacing: 3px;
+    letter-spacing: 2px;
 }
 
 .die {
@@ -64,6 +69,31 @@ main {
     cursor: pointer;
     background-color: white;
     position: relative;
+}
+.timer {
+    position: absolute;
+    top: 0;
+    left: 0px;
+    font-size: 22px;
+    font-weight: 900;
+    background: #59e391;
+    padding: 0 7px;
+}
+
+.score {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.best-time {
+    font-weight: 500;
+    background: lightgreen;
+    padding: 0 5px;
+}
+
+.limit-time {
+    padding-right: 5px;
 }
 
 /* making dot */
@@ -143,6 +173,21 @@ main {
 }
 .roll:hover {
     background-color: #3b26c1;
+}
+
+.dice {
+    font-size: 20px;
+    display: inline-block;
+    animation: ani 1.5s infinite linear forwards;
+}
+
+@keyframes ani {
+    0% {
+        transform: rotate(0);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 @media screen and (max-width: 480px) {
