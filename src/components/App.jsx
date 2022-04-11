@@ -2,6 +2,10 @@ import React, { useState, useEffect } from 'react';
 import Die from './Die';
 import { nanoid } from 'nanoid';
 import Confetti from 'react-confetti';
+import { Canvas } from '@react-three/fiber';
+import Box from './Box';
+import { OrbitControls } from '@react-three/drei';
+import { Suspense } from 'react';
 
 const App = () => {
     // generate random number between 1-6
@@ -136,13 +140,23 @@ const App = () => {
 
     return (
         <main>
+            <Canvas className='canvas'>
+                <OrbitControls enableZoom={false} />
+                <ambientLight intensity={0.5} />
+                <directionalLight position={[-2, 5, 2]} intensity={1} />
+                <Suspense fallback={null}>
+                    <Box />
+                </Suspense>
+            </Canvas>
             {tenzies && <Confetti />}
             <h1 className='title'>Tenzies</h1>
             <p className='instructions'>
-                {tenzies
-                    ? 'You Win 🎉'
-                    : `Roll until all dice are the same. Click each die to freeze
-                    it at its current value between rolls.`}
+                {tenzies ? (
+                    <span className='win'>You Win 🎉</span>
+                ) : (
+                    `Roll until all dice are the same. Click each die to freeze
+                    it at its current value between rolls.`
+                )}
             </p>
             <div className='container'>{diceElements}</div>
             <button className='roll' onClick={rollDice}>
