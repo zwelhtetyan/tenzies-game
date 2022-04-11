@@ -6,7 +6,6 @@ import { Canvas } from '@react-three/fiber';
 import Box from './Box';
 import { OrbitControls } from '@react-three/drei';
 import { Suspense } from 'react';
-import MetaTag from './MetaTag';
 
 const App = () => {
     // generate random number between 1-6
@@ -141,7 +140,6 @@ const App = () => {
 
     return (
         <main>
-            <MetaTag />
             <Canvas className='canvas'>
                 <OrbitControls enableZoom={false} />
                 <ambientLight intensity={0.5} />
@@ -184,7 +182,7 @@ const App = () => {
                     </p>
                 ) : (
                     <p>
-                        highest score start from{' '}
+                        highest score starts from{' '}
                         <span className='limit-time'>20s</span>
                     </p>
                 )}
